@@ -1,5 +1,4 @@
-﻿@model List<product>;
-
+﻿ @model List<Product>;
 <partial name="_Notification" />
 <div class ="container">
     <div class="row pt-4 pb-3">
@@ -18,22 +17,23 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>
-                product Name
-            </th>
-            <th>
-                Display Order
-            </th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Price</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var obj in Model.OrderBy(u=>u.DisplayOrder))
+        @foreach (var obj in Model)
         {
             <tr>
-                <td>@obj.Name</td>
-                <td>@obj.DisplayOrder</td>
+                <td>@obj.Title</td>
+                <td>@obj.ISBN</td>
+                <td>@obj.ListPrice</td>
+                <td>@obj.Author</td>
+         
                 <td>  <div class="w-75 btn-group">
                     <a asp-controller="product" asp-action="Edit" asp-route-Id="@obj.Id" class="btn btn-primary mx-2">
                         <i class="bi bi-pencil-square"></i>Edit
