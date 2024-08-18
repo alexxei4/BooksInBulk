@@ -9,16 +9,16 @@ namespace Bulkywebv2.Areas.Admin.Controllers
     [Area("Admin")]
     public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepo;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryController(ICategoryRepository db)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _categoryRepo = db;
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
 
@@ -40,8 +40,8 @@ namespace Bulkywebv2.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                _categoryRepo.Add(obj);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Add(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
@@ -56,7 +56,7 @@ namespace Bulkywebv2.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Category? categoryfromDb = _categoryRepo.GetFirstOrDefault(x => x.Id == id);
+            Category? categoryfromDb = _unitOfWork.Category.GetFirstOrDefault(x => x.Id == id);
             if (categoryfromDb == null)
             {
                 return NotFound();
@@ -70,8 +70,8 @@ namespace Bulkywebv2.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _categoryRepo.Update(obj);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Update(obj);
+                _unitOfWork.Save();
                 TempData["success"] = "Category edited successfully";
                 return RedirectToAction("Index");
             }
@@ -86,7 +86,7 @@ namespace Bulkywebv2.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Category? categoryfromDb = _categoryRepo.GetFirstOrDefault(x => x.Id == id);
+            Category? categoryfromDb = _unitOfWork.Category.GetFirstOrDefault(x => x.Id == id);
             if (categoryfromDb == null)
             {
                 return NotFound();
@@ -98,16 +98,15 @@ namespace Bulkywebv2.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePOST(int? id)
         {
-            Category? categoryfromDb = _categoryRepo.GetFirstOrDefault(x => x.Id == id);
+            Category? categoryfromDb = _unitOfWork.Category.GetFirstOrDefault(x => x.Id == id);
             if (categoryfromDb == null)
             {
                 return NotFound();
             }
-            _categoryRepo.Remove(categoryfromDb);
-            _categoryRepo.Save();
+            _unitOfWork.Category.Remove(categoryfromDb);
+            _unitOfWork.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
         }
-
     }
 }
