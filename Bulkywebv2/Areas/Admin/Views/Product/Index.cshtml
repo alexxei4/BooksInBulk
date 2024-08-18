@@ -4,11 +4,11 @@
     <div class="row pt-4 pb-3">
         <div class="col-6">
             <h2 class="text-primary">
-                product List
+                Product List
             </h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="product" asp-action="Create" class="btn btn-primary">
+            <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Create New product
             </a>
         </div>
@@ -22,6 +22,7 @@
             <th>Price</th>
             <th>Author</th>
             <th>Category</th>
+            <th>ImageUrl</th>
             <th></th>
         </tr>
     </thead>
@@ -33,21 +34,18 @@
                 <td>@obj.ISBN</td>
                 <td>@obj.ListPrice</td>
                 <td>@obj.Author</td>
+                <td>@obj.Category</td>
+                <td>@obj.ImageUrl</td>
          
                 <td>  <div class="w-75 btn-group">
-                    <a asp-controller="product" asp-action="Edit" asp-route-Id="@obj.Id" class="btn btn-primary mx-2">
+                    <a asp-controller="Product" asp-action="Upsert" asp-route-Id="@obj.Id" class="btn btn-primary mx-2">
                         <i class="bi bi-pencil-square"></i>Edit
                     </a>
-                </div> </td>
-                <td>
-                    <div class="w-75 btn-group">
                         <a asp-controller="product" asp-action="Delete" class="btn btn-danger mx-2">
                             <i class="bi bi-trash-fill"></i>Delete
                         </a>
-                    </div>
-
-
-                </td>
+                </div> </td>
+               
 
             </tr>
         }
