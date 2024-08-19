@@ -12,7 +12,9 @@ namespace Bulky.DataAccess.Repository.IRepository
     {
 
         void Update(Product obj);
+
         void Save();
+        Product GetFirstOrDefault(Expression<Func<Product, bool>> filter, string? includeProperties = null);
 
 
     }

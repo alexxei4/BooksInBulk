@@ -20,3 +20,34 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Light mode styles */
+body {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --navbar-bg-color: #f8f9fa;
+    --navbar-text-color: #ffffff; /* Ensure navbar text is white in light mode */
+}
+
+    /* Dark mode styles */
+    body.dark-mode {
+        --background-color: #121212;
+        --text-color: #ffffff;
+        --navbar-bg-color: #333333;
+        --navbar-text-color: #ffffff;
+    }
+
+/* Apply the variables to elements */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.navbar {
+    background-color: var(--navbar-bg-color);
+    color: var(--navbar-text-color);
+}
+
+    .navbar a {
+        color: var(--navbar-text-color);
+    }

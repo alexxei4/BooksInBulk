@@ -25,9 +25,19 @@ namespace Bulkywebv2.Areas.Customer.Controllers
 
         public IActionResult Details(int productId)
         {
-            Product product = _unitOfWork.Product.Get(u => u.Id == productId, includeProperties: "Category");
+            Product product = _unitOfWork.Product.GetFirstOrDefault(
+                u => u.Id == productId,
+                includeProperties: "Category"
+            );
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
             return View(product);
         }
+
 
         public IActionResult Privacy()
         {

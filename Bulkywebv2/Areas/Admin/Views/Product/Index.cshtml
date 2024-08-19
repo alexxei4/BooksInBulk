@@ -1,6 +1,8 @@
-﻿ @model List<Product>;
+﻿@model List<Product>;
+
 <partial name="_Notification" />
-<div class ="container">
+
+<div class="container">
     <div class="row pt-4 pb-3">
         <div class="col-6">
             <h2 class="text-primary">
@@ -9,11 +11,12 @@
         </div>
         <div class="col-6 text-end">
             <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> Create New product
+                <i class="bi bi-plus-circle"></i> Create New Product
             </a>
         </div>
     </div>
 </div>
+
 <table id="tblData" class="table table-bordered table-striped" style="width:100%">
     <thead>
         <tr>
@@ -22,15 +25,31 @@
             <th>Price</th>
             <th>Author</th>
             <th>Category</th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
-   
-        
-
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Title</td>
+                <td>@product.ISBN</td>
+                <td>@product.Price</td>
+                <td>@product.Author</td>
+                <td>@product.Category.Name</td> <!-- Assuming Product has a navigation property to Category -->
+                <td>
+                    <a asp-controller="Product" asp-action="Upsert" asp-route-id="@product.Id" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </a>
+                    <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-trash"></i> Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
 @section Scripts {
     <script src="~/js/product.js"></script>
-
-
 }
