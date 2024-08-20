@@ -27,6 +27,8 @@ body {
     --text-color: #000000;
     --navbar-bg-color: #f8f9fa;
     --navbar-text-color: #ffffff; /* Ensure navbar text is white in light mode */
+    --dropdown-bg-color: #f8f9fa;
+    --dropdown-text-color: #ffffff;
 }
 
     /* Dark mode styles */
@@ -35,6 +37,8 @@ body {
         --text-color: #ffffff;
         --navbar-bg-color: #333333;
         --navbar-text-color: #ffffff;
+        --dropdown-bg-color: #333333;
+        --dropdown-text-color: #ffffff;
     }
 
 /* Apply the variables to elements */
@@ -48,6 +52,4 @@ body {
     color: var(--navbar-text-color);
 }
 
-    .navbar a {
-        color: var(--navbar-text-color);
-    }
+ 
