@@ -17,6 +17,9 @@ namespace Bulky.DataAccess.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<Company> Companies { get; set; }
+
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
 
@@ -29,6 +32,9 @@ namespace Bulky.DataAccess.Data
                 new Category { Id = 2, Name = "Comedy", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "Horror", DisplayOrder = 3 }
                 );
+
+           
+
 
             modelBuilder.Entity<Product>().HasData(
                 new Product
