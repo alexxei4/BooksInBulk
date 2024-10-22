@@ -1,0 +1,85 @@
+﻿@model List<Bulky.Models.ViewModels.OrderVM>
+
+<partial name="_Notification" />
+
+<div class="container">
+    <div class="row pt-4 pb-3">
+        <div class="col-6">
+            <h2 class="text-primary"
+                style="text-shadow:
+            1px 1px 0 #ffffff,
+            -1px -1px 0 #ffffff,
+            1px -1px 0 #ffffff,
+            -1px 1px 0 #ffffff;">
+                Order List
+            </h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Order" asp-action="Upsert" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> New Order
+            </a>
+        </div>
+    </div>
+</div>
+
+<table id="tblData" class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>PhoneNumber</th>
+            <th>Email</th>
+            <th>OrderStatus</th>
+            <th>OrderTotal</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var orderVM in Model)
+        {
+            <tr>
+                <td>@orderVM.OrderHeader.Id</td>
+                <td>@orderVM.OrderHeader.Name</td>
+                <td>@orderVM.OrderHeader.PhoneNumber</td>
+                <td>@(orderVM.OrderHeader.ApplicationUser?.Email ?? "N/A")</td>
+                <td>@orderVM.OrderHeader.OrderStatus</td>
+                <td>@orderVM.OrderHeader.OrderTotal.ToString("c")</td> <!-- Assuming Product has a navigation property to Category -->
+                <td>
+                    <div class="w-75 btn-group">
+                        <a asp-controller="Order" asp-action="Upsert" asp-route-id="@orderVM.OrderHeader.Id" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-pencil-square"></i> Edit
+                        </a>
+                    </div>
+                    <div class="w-75 btn-group">
+                        <form asp-controller="Order" asp-action="Delete" asp-route-id="@orderVM.OrderHeader.Id" method="post" style="display:inline;" id="delete-form-@orderVM.OrderHeader.Id">
+                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="showDeleteConfirmation('@orderVM.OrderHeader.Id')">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </form>
+                    </div>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function showDeleteConfirmation(orderId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If confirmed, submit the form
+                document.getElementById('delete-form-' + orderId).submit();
+            }
+        });
+    }
+</script>
+

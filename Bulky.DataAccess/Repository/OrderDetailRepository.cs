@@ -10,19 +10,24 @@ using System.Threading.Tasks;
 
 namespace Bulky.DataAccess.Repository
 {
-    public class ApplicationUserRepository : Repository<ApplicationUser> , IApplicationUserRepository
+    public class OrderDetailRepository : Repository<OrderDetail> , IOrderDetailRepository
     {
         private ApplicationDbContext _db;
 
-        public ApplicationUserRepository(ApplicationDbContext db) : base(db) 
+        public OrderDetailRepository(ApplicationDbContext db) : base(db) 
         {
         
             _db = db;
         }
-        public void Update(ApplicationUser applicationUser)
+
+        public void Save()
         {
-            _db.ApplicationUsers.Update(applicationUser);
+            _db.SaveChanges();
         }
 
+        public void Update(OrderDetail obj)
+        {
+            _db.OrderDetails.Update(obj);
+        }
     }
 }
